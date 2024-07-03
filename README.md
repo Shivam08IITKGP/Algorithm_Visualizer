@@ -2,6 +2,13 @@
 
 Algorithm Visualizer is a Flask-based application to visualize various algorithms, including graph algorithms, string algorithms, sorting algorithms, and dynamic programming algorithms.
 
+## Running without installing
+
+Type this url on your browser:
+   ```bash
+    https://algorithm-visualizer-njnd.onrender.com
+   ```
+
 ## Installation
 
 1. Clone the repository:
