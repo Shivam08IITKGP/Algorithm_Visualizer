@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Algorithm Visualizer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <!-- Add Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="{{ url_for('static', filename='scripts.js') }}"></script>
+    <!-- Add Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="wrapper">
+    <header>
+        <h2>Algorithm Visualizer</h2>
+    </header>
+    <main class="container {% if request.path == '/' %} home-mode{% elif request.path=='/run' %}run-mode{% endif %}">
+        <section class="left {% if not filename %}full-width{% endif %}">
+            <form action="/run" method="post">
+                <div class="form-group">
+                    <label for="algorithm-category">Choose Category:</label>
+                    <select id="algorithm-category" class="custom-select" onchange="updateAlgorithmList()">
+                        <option value="">--Select Category--</option>
+                        <option value="graph">Graph</option>
+                        <option value="strings">Strings</option>
+                        <option value="sorting">Sorting</option>
+                        <option value="dynamic_programming">Dynamic Programming</option>
+                        <option value="trees">Trees</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="algorithm">Choose Algorithm:</label>
+                    <select name="algorithm" id="algorithm" class="custom-select">
+                        <option value="">--Select Algorithm--</option>
+                        <!-- Options will be populated dynamically -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="test_case">Test Case:</label>
+                    <select name="test_case" id="test_case" class="custom-select" onchange="toggleCustomInput()">
+                        <option value="Random">Random</option>
+                        <option value="Custom">Custom</option>
+                    </select>
+                </div>
+
+                <div class="form-group" id="custom-input-box" style="display: none;">
+                    <label for="custom_input">Custom Input:</label>
+                    <textarea name="custom_input" id="custom_input" rows="5" cols="30"
+                              placeholder="For Dijkstra, Kruskal, Prim:&#10;Write Directed or Undirected&#10;write the edges in this format (u v w)&#10;For other graph algorithms:&#10;Write Directed or Undirected&#10;write the edges in this format (u v)&#10;For strings and arrays:&#10;Just write the string or array&#10;For 0/1 and duplicate knapsack DP:&#10;write the weights array&#10;newline the profit array&#10;newline the capacity"
+                              class="form-control"
+                              onfocus="removePlaceholder()" onblur="addPlaceholder()"></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Run</button>
+            </form>
+
+            <div class="distances">
+                {% if distances %}
+                <h3>Minimum Distances from Source Node</h3>
+                <ul>
+                    {% for node, distance in distances.items() %}
+                    <li>Node {{ node }}: {% if distance != inf %}{{ distance|int }}{% else %}Infinity{% endif %}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+                {% if traversal_order %}
+                <h3>Traversal Order</h3>
+                <ul>
+                    <li>{{ traversal_order|join(' -> ') }}</li>
+                </ul>
+                {% endif %}
+                {% if sorted_array %}
+                <h3>Sorted Array</h3>
+                <ul>
+                    <li>{{ sorted_array|join(', ') }}</li>
+                </ul>
+                {% endif %}
+                {% if mst %}
+                <h3>Minimum Spanning Tree (MST)</h3>
+                <ul>
+                    {% for edge in mst %}
+                    <li>{{ edge[0] }} -- {{ edge[1] }} : {{ edge[2] }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+                {% if max_value %}
+                <h3>Maximum Knapsack Value</h3>
+                <ul>
+                    <li>{{ max_value }}</li>
+                </ul>
+                {% endif %}
+                {% if level_order %}
+                <h3>Tree Level Order Traversal</h3>
+                <ul>
+                    <li>{{ level_order|join(' -> ') }}</li>
+                </ul>
+                {% endif %}
+                {% if bridges %}
+                <h3>Bridges</h3>
+                <ul>
+                    {% for bridge in bridges %}
+                    <li>{{ bridge[0] }} -- {{ bridge[1] }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+                {% if ap %}
+                <h3>Articulation Points</h3>
+                <ul>
+                    {% for point in ap %}
+                    <li>{{ point }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+                {% if z_array %}
+                <h3>Z Array</h3>
+                <ul>
+                    <li>{{ z_array|join(', ') }}</li>
+                </ul>
+                {% endif %}
+                {% if prefix_array  %}
+                <h3>Prefix Array</h3>
+                <ul>
+                    <li>{{ prefix_array|join(', ') }}</li>
+                </ul>
+                {% endif %}
+                {% if algorithm == 'Longest Common Subsequence' %}
+                <h3>Longest Common Subsequence</h3>
+                <ul>
+                    <li>{{ s }}</li>
+                </ul>
+                {% endif %}
+                {% if algorithm == 'Longest Palindromic Subsequence' %}
+                <h3>Longest Palindromic Subsequence</h3>
+                <ul>
+                    <li>{{ s }}</li>
+                </ul>
+                {% endif %}
+                {% if algorithm == 'Longest Common Substring' %}
+                <h3>Longest Common Substring</h3>
+                <ul>
+                    <li>{{ s }}</li>
+                </ul>
+                {% endif %}
+            </div>
+        </section>
+        {% if filename is not none %}
+        <section class="right">
+            <h2>{{ algorithm }}</h2>
+            <img src="{{ url_for('static', filename=filename) }}?t={{ timestamp }}" alt="Algorithm Visualization" class="visualization">
+        </section>
+        {% endif %}
+    </main>
+    <footer>
+        <p>&copy; 2024 Algorithm Visualizer. All rights reserved.</p>
+    </footer>
+</div>
+</body>
+</html>

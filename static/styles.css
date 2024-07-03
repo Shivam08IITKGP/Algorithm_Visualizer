@@ -1,0 +1,251 @@
+/* General Styles */
+body, h1, h2, h3, ul, li, p, header, footer {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+    background-size: 400% 400%;
+    color: #333;
+    line-height: 1.6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    animation: gradientBackground 15s ease infinite;
+}
+
+@keyframes gradientBackground {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+@keyframes slideIn {
+    0% {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.wrapper {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    background: #fff;
+}
+header, footer {
+    background: #4CAF50;
+    color: #f0f0f0 !important;  /* Light Gray */
+    text-align: center;
+    padding: 20px 0;
+}
+
+header h2 {
+    color: #f0f0f0 !important;  /* Light Gray */
+}
+
+footer p {
+    color: #f0f0f0 !important;  /* Light Gray */
+}
+h2 {
+    font-size: 2rem;
+    color: #4CAF50;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.left {
+    border-right: 0px solid #4CAF50;
+    min-width: 300px;
+    width: 35%;
+    padding: 20px;
+    box-sizing: border-box;
+    background: #f0f0f0;
+    color: #333;
+}
+
+.right {
+    width: 60%;
+    padding: 20px;
+    box-sizing: border-box;
+    border-radius: 8px;
+    margin-top: 20px;
+    animation: slideIn 1s forwards;
+    padding: 0;
+    overflow-x: auto;
+    white-space: nowrap;
+    text-align: center;
+}
+
+.visualization {
+    width: auto;
+    height: auto;
+    object-fit: contain;
+}
+
+form {
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #4CAF50;
+}
+
+select, textarea, .btn {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #bdc3c7;
+    border-radius: 4px;
+    font-size: 1.2rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+select:focus, textarea:focus, .btn:focus {
+    outline: none;
+    border-color: #4CAF50;
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+}
+
+select option:hover {
+    text-decoration: underline;
+}
+
+textarea {
+    resize: vertical;
+}
+
+#custom-input-box {
+    margin-top: 15px;
+}
+
+.btn {
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #388E3C;
+}
+
+footer {
+    background: #4CAF50;
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
+    font-size: 0.9rem;
+}
+
+/* Route-specific Styles */
+.home-mode {
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 100px);
+    display: flex;
+}
+
+.run-mode .container {
+    justify-content: center;
+}
+
+.home-mode .left {
+    width: 35%;
+    margin-right: 5%;
+}
+
+.run-mode .left {
+    width: 30%;
+    margin-right: 10%;
+}
+
+.run-mode .right {
+    width: 60%;
+}
+
+.run-mode .right h2 {
+    text-align: center;
+}
+
+/* Dropdown animation */
+select {
+    position: relative;
+    display: inline-block;
+}
+
+select::after {
+    content: '\25BC'; /* Down arrow */
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+select:hover {
+    cursor: pointer;
+}
+
+select option {
+    padding: 10px;
+    transition: all 1s ease;
+}
+
+select option:hover {
+    background-color: transparent;
+    text-decoration: underline;
+}
+
+#custom_input::placeholder {
+    color: #ccc;
+    opacity: 1; /* Override default opacity */
+}
+
+#custom_input:-ms-input-placeholder {
+    color: #ccc;
+}
+
+#custom_input::-ms-input-placeholder {
+    color: #ccc;
+}
+
+#custom_input:focus::placeholder {
+    color: transparent;
+}
+
+/* Custom input box watermark text */
+textarea::placeholder {
+    white-space: pre-wrap; /* Allows for line breaks in placeholder text */
+}
