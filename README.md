@@ -6,11 +6,12 @@ Algorithm Visualizer is a Flask-based application to visualize various algorithm
 
 1. Clone the repository:
     ```bash
-    git clone https://github.com/yourusername/algorithm-visualizer.git
-    cd algorithm-visualizer
+    git clone https://github.com/Shivam08IITKGP/Algorithm_Visualizer.git
+    cd Algorithm_Visualizer
     ```
 
 2. Create a virtual environment:
+
     ```bash
     python -m venv venv
     source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
