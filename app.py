@@ -7,7 +7,6 @@ import json
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'static/gifs'
 
-
 @app.route('/')
 def index():
     distances = {}
@@ -29,7 +28,6 @@ def index():
                            level_order=level_order, matches=matches, z_array=z_array, prefix_array=prefix_array, ap=ap,
                            result_matrix=result_matrix, bridges=bridges, max_value=max_value, s=s,
                            inf=float('inf'))
-
 
 @app.route('/run', methods=['POST'])
 def run():
@@ -110,8 +108,8 @@ def run():
                            z_array=z_array, result_matrix=result_matrix, prefix_array=prefix_array,
                            max_value=max_value, bridges=bridges, ap=ap, inf=inf)
 
-
 if __name__ == '__main__':
     if not os.path.exists(app.config['UPLOAD_FOLDER']):
         os.makedirs(app.config['UPLOAD_FOLDER'])
-    app.run(debug=True)
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port, debug=True)
