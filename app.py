@@ -4,8 +4,11 @@ import subprocess
 import time
 import json
 
+from strings.suffix_array import suffix_array
+
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'static/gifs'
+
 
 @app.route('/')
 def index():
@@ -21,13 +24,15 @@ def index():
     bridges = []
     ap = []
     max_value = []
+    suffix_array=[]
     s = ""
     algorithm = ""
     return render_template('index.html', algorithm=algorithm, filename=None, distances=distances,
                            traversal_order=traversal_order, sorted_array=sorted_array, mst=mst,
                            level_order=level_order, matches=matches, z_array=z_array, prefix_array=prefix_array, ap=ap,
-                           result_matrix=result_matrix, bridges=bridges, max_value=max_value, s=s,
+                           result_matrix=result_matrix, bridges=bridges, max_value=max_value, s=s,suffix_array=suffix_array,
                            inf=float('inf'))
+
 
 @app.route('/run', methods=['POST'])
 def run():
@@ -55,7 +60,7 @@ def run():
 
         distances = result_data.get('distances', {})
         traversal_order = result_data.get('traversal_order', [])
-        sorted_array = result_data.get('array', [])
+        sorted_array = result_data.get('sorted_array', [])
         mst = result_data.get('mst', [])
         level_order = result_data.get('level_order', [])
         matches = result_data.get('matches', [])
@@ -67,6 +72,7 @@ def run():
         max_value = result_data.get('max_value', [])
         algorithm = result_data.get('algorithm', "")
         s = result_data.get('string', "")
+        suffix_array = result_data.get('suffix_array', [])
         print("Result data loaded from file")
         print("Distances:", distances)
         print("Traversal order:", traversal_order)
@@ -82,6 +88,7 @@ def run():
         print("Prefix Array: ", prefix_array)
         print("Algorithm: ", algorithm)
         print("String: ", s)
+        print("Suffix Array: ", suffix_array)
 
     else:
         distances = {}
@@ -105,8 +112,9 @@ def run():
                            distances=distances, s=s,
                            traversal_order=traversal_order, sorted_array=sorted_array, mst=mst,
                            level_order=level_order, matches=matches,
-                           z_array=z_array, result_matrix=result_matrix, prefix_array=prefix_array,
+                           z_array=z_array, result_matrix=result_matrix, prefix_array=prefix_array,suffix_array=suffix_array,
                            max_value=max_value, bridges=bridges, ap=ap, inf=inf)
+
 
 if __name__ == '__main__':
     if not os.path.exists(app.config['UPLOAD_FOLDER']):

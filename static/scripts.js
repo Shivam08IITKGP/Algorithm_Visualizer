@@ -12,6 +12,7 @@ const algorithms = {
     strings: [
         { name: 'KMP Algorithm', value: 'KMP' },
         { name: 'Z Array Algorithm', value: 'Z-Array' },
+        { name: 'Suffix Array Algorithm', value: 'Suffix Array' },
     ],
     sorting: [
         { name: 'Quick Sort', value: 'Quick Sort' },
@@ -29,6 +30,7 @@ const algorithms = {
     trees: [
         { name:'Level Order Traversal', value: 'Level Order Traversal' },
         { name:'ZigZag Order Traversal', value: 'ZigZag Order Traversal' },
+        { name:'Lazy Propagation', value: 'Segment Tree'},
     ],
 };
 
@@ -76,9 +78,11 @@ function updatePlaceholder() {
         placeholderText = `Write the Weights array\nWrite the Profit array\nWrite the Total Capacity\nWrite the arrays without spaces separated by commas\nExample: 1,2,3,4,5\nExample: 1,2,3,4,5\nExample: 10`;
     } else if (algorithm === 'Longest Common Subsequence' || algorithm === 'Longest Common Substring') {
         placeholderText = `Write the first string\nWrite the second string`;
-    } else if(algorithm === 'Level Order Traversal' || algorithm === 'ZigZag Order Traversal'){
+    } else if (algorithm === 'Level Order Traversal' || algorithm === 'ZigZag Order Traversal'){
         placeholderText = `No custom input for this algorithm\nSorry!`;
         isInputDisabled = true;
+    } else if (algorithm === 'Segment Tree'){
+        placeholderText = `Write the array separated by commas\nNo spaces\nExample: 1,2,3,4,5\nWrite the queries in format\nl,r,val (1 based indexing)\nfor updation\nl,r\nfor query\nSeparated by new lines\n(Don't write total queries and total elements)\nThe random test case will take queries as 2,5,5 for updation\n2,4 and 1,4 for query`;
     }
 
     customInput.placeholder = placeholderText;

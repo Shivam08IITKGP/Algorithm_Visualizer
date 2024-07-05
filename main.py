@@ -1,3 +1,4 @@
+from cgi import test
 import sys
 import random
 import networkx as nx
@@ -22,8 +23,10 @@ from dp.LCSubsequence import visualize_lcs
 from dp.LCSubstring import visualize_lcsu
 from trees.tree_level_order_traversal import visualize_level_order_traversal
 from trees.ZigZagOrderTraversal import visualize_zig_zag_order_traversal
+from trees.SegmentTree import SegmentTree
 from strings.kmp import visualize_kmp_array
 from strings.z_array import visualize_z_array
+from strings.suffix_array import visualize_suffix_array_construction
 import json
 
 if __name__ == '__main__':
@@ -245,6 +248,39 @@ if __name__ == '__main__':
             graph = custom_graph_input_unweighted(custom_input)
         traversal_order = visualize_random_traversal(graph, output_file)
         result_data['traversal_order'] = traversal_order
+
+    elif algorithm == 'Suffix Array':
+        if test_case_type == "Random":
+            text = "abababca"
+        else:
+            text = custom_input
+        suffix_array = visualize_suffix_array_construction(text, output_file)
+        result_data['suffix_array'] = suffix_array
+        
+    elif algorithm == 'Segment Tree':
+        # ans = list()       
+        print(test_case_type)
+        if test_case_type == "Random":
+            segmenttree=SegmentTree(random.sample(range(1, 10), 5))
+            queries = [[2, 5, 5], [2, 4], [1, 4]]
+            ans=segmenttree.visualize_segment_tree_operations(output_file=output_file, queries=queries)
+        else:
+            lines = custom_input.split('\n')
+            lines[0] = lines[0].strip(' ')
+            array = list(map(int, lines[0].split(',')))
+            segmenttree = SegmentTree(array)
+            queries = []
+            print(type(queries))
+            for query in lines[1:]:
+                q = query.strip(' ')
+                q = q.strip('\n')
+                q = list(map(int, q.split(',')))
+                queries.append(q)
+            ans=segmenttree.visualize_segment_tree_operations(queries=queries, output_file=output_file)
+        print(queries)
+        print(ans)
+        result_data['sorted_array']=ans
+        print(result_data['sorted_array'])              
 
     else:
         print(f"Algorithm {algorithm} not found")

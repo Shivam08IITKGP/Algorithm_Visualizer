@@ -67,6 +67,12 @@
                     {% endfor %}
                 </ul>
                 {% endif %}
+                {% if suffix_array %}
+                <h3>Suffix Array</h3>
+                <ul>
+                    <li>{{ suffix_array|join(', ') }}</li>
+                </ul>
+                {% endif %}
                 {% if traversal_order %}
                 <h3>Traversal Order</h3>
                 <ul>
@@ -74,7 +80,11 @@
                 </ul>
                 {% endif %}
                 {% if sorted_array %}
+                {% if algorithm == 'Segment Tree'%}
+                <h3>Queries Result</h3>
+                {% else %}
                 <h3>Sorted Array</h3>
+                {% endif %}
                 <ul>
                     <li>{{ sorted_array|join(', ') }}</li>
                 </ul>
