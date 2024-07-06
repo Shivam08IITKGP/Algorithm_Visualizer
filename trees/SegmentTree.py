@@ -119,7 +119,13 @@ class SegmentTree:
 
         fig.tight_layout(pad=0)  # Ensure no padding
         fig.canvas.draw()
-        self.frames.append(np.array(fig.canvas.buffer_rgba()))
+        image = np.frombuffer(fig.canvas.tostring_rgb(), dtype='uint8')
+        image = image.reshape(fig.canvas.get_width_height()[::-1] + (3,))
+
+        # Append the image (frame) to the frames list
+        self.frames.append(image)
+
+        # Close the figure to free up memory and avoid overlap
         plt.axis('off')
         plt.xticks([])
         plt.yticks([])
@@ -153,7 +159,7 @@ class SegmentTree:
                                          interval=1500, repeat=False)
 
         print(f"Saving animation to {output_file}...")
-        anim.save(output_file, writer='pillow', dpi=100,
+        anim.save(output_file, writer='pillow', dpi=120,
                   savefig_kwargs={'transparent': True, 'facecolor': 'none', 'pad_inches': 0})
 
         print("Animation saved successfully.")

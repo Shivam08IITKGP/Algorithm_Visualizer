@@ -80,8 +80,8 @@
                 </ul>
                 {% endif %}
                 {% if sorted_array %}
-                    {% if algorithm == 'Segment Tree'%}
-                        {%if test_case_type=='Random'%}
+                    {% if algorithm == 'Segment Tree' %}
+                        {%if test_case_type=='Random' %}
                             <h3>Test Case Employed</h3>
                             <ul>
                                 <li>{{array|join(', ') }}</li>
@@ -92,12 +92,12 @@
                                 <li>2 4</li>
                                 <li>1 4</li>
                             </ul>
-                        {%endif%}
+                        {% endif %}
                         <h3>Queries Result</h3>
                         <ul>
                             <li>{{sorted_array|join(',')}}</li>
                         </ul>
-                    {%else%}
+                    {% else %}
                             <h3>Sorted Array</h3>
                             <ul>
                                 <li>{{ sorted_array|join(', ') }}</li>

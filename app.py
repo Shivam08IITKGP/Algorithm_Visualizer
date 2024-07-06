@@ -23,14 +23,14 @@ def index():
     ap = []
     max_value = []
     suffix_array=[]
-    test_case = ""
+    test_case_type = ""
     array=[]
     s = ""
     algorithm = ""
     return render_template('index.html', algorithm=algorithm, filename=None, distances=distances,
                            traversal_order=traversal_order, sorted_array=sorted_array, mst=mst,
                            level_order=level_order, matches=matches, z_array=z_array, prefix_array=prefix_array, ap=ap,
-                           result_matrix=result_matrix, bridges=bridges, max_value=max_value, s=s,suffix_array=suffix_array,test_case=test_case,array=array,
+                           result_matrix=result_matrix, bridges=bridges, max_value=max_value, s=s,suffix_array=suffix_array,test_case_type=test_case_type,array=array,
                            inf=float('inf'))
 
 
@@ -43,7 +43,7 @@ def run():
     print(algorithm)
     print(test_case_type)
     output_file = os.path.join(app.config['UPLOAD_FOLDER'], 'output.gif')
-    cmd = ['python', 'main.py', algorithm, test_case_type, custom_input, output_file]
+    cmd = ['python3', 'main.py', algorithm, test_case_type, custom_input, output_file]
 
     result = subprocess.run(cmd, capture_output=True, text=True)
 
@@ -73,8 +73,8 @@ def run():
         algorithm = result_data.get('algorithm', "")
         s = result_data.get('string', "")
         suffix_array = result_data.get('suffix_array', [])
-        test_case_type = result_data.get('test_case', "")
         array = result_data.get('array', [])
+        
         print("Result data loaded from file")
         print("Distances:", distances)
         print("Traversal order:", traversal_order)
@@ -108,7 +108,6 @@ def run():
         max_value = []
         prefix_array = []
         array = []
-        test_case_type = ""
         algorithm = ""
         s = ""
 
@@ -125,5 +124,5 @@ def run():
 if __name__ == '__main__':
     if not os.path.exists(app.config['UPLOAD_FOLDER']):
         os.makedirs(app.config['UPLOAD_FOLDER'])
-    port = int(os.environ.get('PORT', 5001))
+    port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port, debug=True)

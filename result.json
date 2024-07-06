@@ -1,1 +1,1 @@
-{"suffix_array": [7, 0, 2, 4, 1, 3, 5, 6], "algorithm": "Suffix Array"}
+{"string": ["B", "A", "C", "B", "C", "A", "B"], "algorithm": "Longest Palindromic Subsequence"}
