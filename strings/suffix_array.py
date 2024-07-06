@@ -72,22 +72,22 @@ def visualize_suffix_array_construction(text, outputfile='suffix_array_construct
         ax.clear()
         ax.text(0.5, 0.7,
                 f"{visualization_steps[frame][0]}\n{text}\n{visualization_steps[frame][1]}\nSorted Substrings:\n{visualization_steps[frame][2]}",
-                fontsize=12, family='monospace', ha='center', va='center',
-                bbox=dict(facecolor='lightblue', alpha=0.5, pad=10))
+                fontsize=10, family='monospace', ha='center', va='center',
+                bbox=dict(facecolor='lightblue', alpha=0.5, pad=5))
         ax.text(0.5, 0.3,
                 f"Previous Ranks:\n{visualization_steps[frame][3]}",
-                fontsize=12, family='monospace', ha='center', va='center',
-                bbox=dict(facecolor='lightgreen', alpha=0.5, pad=10))
+                fontsize=10, family='monospace', ha='center', va='center',
+                bbox=dict(facecolor='lightgreen', alpha=0.5, pad=5))
         ax.axis('off')
 
     # Setup figure and axis for the animation
-    fig, ax = plt.subplots(figsize=(12, 6))
-    ax.set_title('Suffix Array Construction with Sorted Substrings and Ranks', fontsize=14)
+    fig, ax = plt.subplots(figsize=(8, 4))  # Adjusted figsize
+    ax.set_title('Suffix Array Construction with Sorted Substrings and Ranks', fontsize=12)
     ax.axis('off')
 
     # Create animation
     anim = animation.FuncAnimation(fig, update_frame, frames=len(visualization_steps), interval=1000, repeat=False)
-    anim.save(outputfile, writer='pillow', dpi=120)
+    anim.save(outputfile, writer='pillow', dpi=100)  # Adjusted dpi
 
     return suffix_array_result
 
@@ -96,4 +96,3 @@ if __name__ == '__main__':
     text = "banana"
     s = visualize_suffix_array_construction(text)
     print(s)
-

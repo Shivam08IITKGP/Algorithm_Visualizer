@@ -4,8 +4,6 @@ import subprocess
 import time
 import json
 
-from strings.suffix_array import suffix_array
-
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'static/gifs'
 
@@ -25,12 +23,14 @@ def index():
     ap = []
     max_value = []
     suffix_array=[]
+    test_case = ""
+    array=[]
     s = ""
     algorithm = ""
     return render_template('index.html', algorithm=algorithm, filename=None, distances=distances,
                            traversal_order=traversal_order, sorted_array=sorted_array, mst=mst,
                            level_order=level_order, matches=matches, z_array=z_array, prefix_array=prefix_array, ap=ap,
-                           result_matrix=result_matrix, bridges=bridges, max_value=max_value, s=s,suffix_array=suffix_array,
+                           result_matrix=result_matrix, bridges=bridges, max_value=max_value, s=s,suffix_array=suffix_array,test_case=test_case,array=array,
                            inf=float('inf'))
 
 
@@ -73,6 +73,8 @@ def run():
         algorithm = result_data.get('algorithm', "")
         s = result_data.get('string', "")
         suffix_array = result_data.get('suffix_array', [])
+        test_case_type = result_data.get('test_case', "")
+        array = result_data.get('array', [])
         print("Result data loaded from file")
         print("Distances:", distances)
         print("Traversal order:", traversal_order)
@@ -89,6 +91,8 @@ def run():
         print("Algorithm: ", algorithm)
         print("String: ", s)
         print("Suffix Array: ", suffix_array)
+        print("Test Case: ", test_case_type)
+        print("Array: ", array)
 
     else:
         distances = {}
@@ -103,6 +107,8 @@ def run():
         ap = []
         max_value = []
         prefix_array = []
+        array = []
+        test_case_type = ""
         algorithm = ""
         s = ""
 
@@ -113,11 +119,11 @@ def run():
                            traversal_order=traversal_order, sorted_array=sorted_array, mst=mst,
                            level_order=level_order, matches=matches,
                            z_array=z_array, result_matrix=result_matrix, prefix_array=prefix_array,suffix_array=suffix_array,
-                           max_value=max_value, bridges=bridges, ap=ap, inf=inf)
+                           max_value=max_value, bridges=bridges, ap=ap, test_case_type=test_case_type, array = array, inf=inf)
 
 
 if __name__ == '__main__':
     if not os.path.exists(app.config['UPLOAD_FOLDER']):
         os.makedirs(app.config['UPLOAD_FOLDER'])
-    port = int(os.environ.get('PORT', 5000))
+    port = int(os.environ.get('PORT', 5001))
     app.run(host='0.0.0.0', port=port, debug=True)

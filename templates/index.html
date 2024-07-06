@@ -80,14 +80,29 @@
                 </ul>
                 {% endif %}
                 {% if sorted_array %}
-                {% if algorithm == 'Segment Tree'%}
-                <h3>Queries Result</h3>
-                {% else %}
-                <h3>Sorted Array</h3>
-                {% endif %}
-                <ul>
-                    <li>{{ sorted_array|join(', ') }}</li>
-                </ul>
+                    {% if algorithm == 'Segment Tree'%}
+                        {%if test_case_type=='Random'%}
+                            <h3>Test Case Employed</h3>
+                            <ul>
+                                <li>{{array|join(', ') }}</li>
+                            </ul>
+                            <h3>Queries took in random test case</h3>
+                            <ul>
+                                <li>2 5 5</li>
+                                <li>2 4</li>
+                                <li>1 4</li>
+                            </ul>
+                        {%endif%}
+                        <h3>Queries Result</h3>
+                        <ul>
+                            <li>{{sorted_array|join(',')}}</li>
+                        </ul>
+                    {%else%}
+                            <h3>Sorted Array</h3>
+                            <ul>
+                                <li>{{ sorted_array|join(', ') }}</li>
+                            </ul>
+                    {% endif %}
                 {% endif %}
                 {% if mst %}
                 <h3>Minimum Spanning Tree (MST)</h3>
@@ -121,7 +136,7 @@
                 <h3>Articulation Points</h3>
                 <ul>
                     {% for point in ap %}
-                    <li>{{ point }}</li>
+                    <li>{{ point|join(', ')  }}</li>
                     {% endfor %}
                 </ul>
                 {% endif %}

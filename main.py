@@ -125,6 +125,9 @@ if __name__ == '__main__':
 
         max_value = visualize_knapsack_01(weights, values, capacity, output_file)
         result_data['max_value'] = max_value
+        result_data['test_case'] = test_case_type
+        result_data['array'].append(weights)
+        result_data['array'].append(values)
 
     elif algorithm == "Duplicate Knapsack":
         if test_case_type == "Random":
@@ -144,6 +147,9 @@ if __name__ == '__main__':
             # print(f'Capacity = {capacity}')
         max_value = visualize_knapsack_duplicate(weights, values, capacity, output_file)
         result_data['max_value'] = max_value
+        result_data['test_case'] = test_case_type
+        result_data['array'].append(weights)
+        result_data['array'].append(values)
 
     elif algorithm == "Level Order Traversal":
         graph = {
@@ -261,7 +267,8 @@ if __name__ == '__main__':
         # ans = list()       
         print(test_case_type)
         if test_case_type == "Random":
-            segmenttree=SegmentTree(random.sample(range(1, 10), 5))
+            array=random.sample(range(1, 10), 5)
+            segmenttree=SegmentTree(array, 5)
             queries = [[2, 5, 5], [2, 4], [1, 4]]
             ans=segmenttree.visualize_segment_tree_operations(output_file=output_file, queries=queries)
         else:
@@ -277,10 +284,9 @@ if __name__ == '__main__':
                 q = list(map(int, q.split(',')))
                 queries.append(q)
             ans=segmenttree.visualize_segment_tree_operations(queries=queries, output_file=output_file)
-        print(queries)
-        print(ans)
         result_data['sorted_array']=ans
-        print(result_data['sorted_array'])              
+        result_data['test_case']=test_case_type
+        result_data['array'] = array
 
     else:
         print(f"Algorithm {algorithm} not found")

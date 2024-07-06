@@ -47,8 +47,8 @@ def visualize_lcsu(A, B, output_file):
     # Calculate figure size based on DP table dimensions and text size
     rows = n + 1
     cols = m + 1
-    fig_width = cols * 0.6  # Adjust based on capacity
-    fig_height = rows * 0.25 + 1.5  # Adjust based on total items and text size
+    fig_width = cols * 0.5  # Adjust based on capacity
+    fig_height = rows * 0.5  # Adjust based on total items and text size
 
     fig, ax = plt.subplots(figsize=(fig_width, fig_height))
 
@@ -74,8 +74,8 @@ def visualize_lcsu(A, B, output_file):
 
         highlighted_A = ''.join([f'[{char}]' if idx == i - 1 else char for idx, char in enumerate(A)])
         highlighted_B = ''.join([f'[{char}]' if idx == j - 1 else char for idx, char in enumerate(B)])
-        ax.text(0.5, 0.1, f'A: {highlighted_A}', ha='center', va='center', fontsize=12)
-        ax.text(0.5, 0.05, f'B: {highlighted_B}', ha='center', va='center', fontsize=12)
+        ax.text(0.5, 0.1, f'A: {highlighted_A}', ha='center', va='center', fontsize=10)
+        ax.text(0.5, 0.05, f'B: {highlighted_B}', ha='center', va='center', fontsize=10)
 
         frames.append(fig_to_image(fig))
         plt.close(fig)
@@ -83,7 +83,7 @@ def visualize_lcsu(A, B, output_file):
     ani = FuncAnimation(fig, update, frames=[(i, j) for i in range(1, rows) for j in range(1, cols)],
                         repeat=False)
     writer = PillowWriter(fps=1)
-    ani.save(output_file, writer=writer, dpi=200)  # Adjust dpi for quality
+    ani.save(output_file, writer=writer, dpi=120)  # Adjust dpi for quality
     plt.close(fig)
 
     return string
