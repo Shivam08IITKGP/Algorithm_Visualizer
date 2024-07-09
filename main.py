@@ -101,7 +101,7 @@ if __name__ == '__main__':
         mst = visualize_kruskal(graph, output_file)
         result_data['mst'] = [(u, v, mst[u][v]['weight']) for u, v in mst.edges()]
 
-    elif algorithm == "Prim MST":
+    elif algorithm == "Prims MST" or algorithm == "Prim MST":
         if test_case_type == "Random":
             graph = generate_random_connected_directed_graph_no_self_loops(6, 10)
         else:
@@ -232,7 +232,7 @@ if __name__ == '__main__':
         string = visualize_lcs(A, B, output_file)
         result_data['string'] = string
 
-    elif algorithm == 'Zig Zag Level Order Traversal':
+    elif algorithm == 'Zig Zag Order Traversal':
         graph = {
             1: [2, 3],
             2: [4, 5],
@@ -269,7 +269,7 @@ if __name__ == '__main__':
             array=random.sample(range(1, 10), 5)
             segmenttree=SegmentTree(array)
             queries = [[2, 5, 5], [2, 4], [1, 4]]
-            ans=segmenttree.visualize_segment_tree_operations(output_file=output_file, queries=queries)
+            ans=segmenttree.visualize_segment_tree_operations(output_file=output_file)
         else:
             lines = custom_input.split('\n')
             lines[0] = lines[0].strip(' ')

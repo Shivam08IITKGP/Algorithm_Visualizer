@@ -84,15 +84,15 @@ def visualize_zig_zag_order_traversal(graph, output_file):
         for neighbour in graph[node]:
             G.add_edge(node, neighbour)
 
-    fig, ax = plt.subplots(figsize=(10, 5))
+    fig, ax = plt.subplots(figsize=(4, 2))
 
     def update(frame):
         ax.clear()
         ax.axis('off')
         pos = hierarchy_pos(G, 1)
         node_colors = ['green' if node in traversal_order[:frame + 1] else 'red' for node in G.nodes()]
-        nx.draw(G, pos, with_labels=True, node_color=node_colors, ax=ax)
-        ax.set_title('Level Order Traversal')
+        nx.draw(G, pos, with_labels=True, node_color=node_colors, ax=ax, edge_color='gray', width=0.5)
+        plt.tight_layout()
 
     ani = FuncAnimation(fig, update, frames=len(traversal_order), repeat=False)
     writer = PillowWriter(fps=1)
@@ -113,7 +113,9 @@ def main():
         7: []
     }
     output_file = 'zig_zag_order_traversal.gif'
-    visualize_zig_zag_order_traversal(graph, output_file)
+    result = visualize_zig_zag_order_traversal(graph, output_file)
+    print(result)
+        
 
 
 if __name__ == "__main__":

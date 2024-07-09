@@ -1,3 +1,5 @@
+from tkinter import font
+from turtle import width
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 import networkx as nx
@@ -99,7 +101,7 @@ class SegmentTree:
         return left_query + right_query
 
     def add_frame(self, node, operation_text, query_text):
-        fig, ax = plt.subplots(figsize=(6, 4))
+        fig, ax = plt.subplots(figsize=(6, 3))
         fig.patch.set_alpha(0)  # Make figure background transparent
 
         # Remove all axes details
@@ -119,16 +121,16 @@ class SegmentTree:
 
         fig.tight_layout(pad=0)  # Ensure no padding
         fig.canvas.draw()
-        image = np.frombuffer(fig.canvas.tostring_rgb(), dtype='uint8')
-        image = image.reshape(fig.canvas.get_width_height()[::-1] + (3,))
+        
+        buf = fig.canvas.buffer_rgba()
+        width, height = fig.canvas.get_width_height()
+        image = np.frombuffer(buf, dtype='uint8').reshape((height, width, 4))
+        # image = image.reshape(fig.canvas.get_width_height()[::-1] + (3,))
 
         # Append the image (frame) to the frames list
         self.frames.append(image)
 
         # Close the figure to free up memory and avoid overlap
-        plt.axis('off')
-        plt.xticks([])
-        plt.yticks([])
         plt.close(fig)
 
     def visualize_segment_tree_operations(self, queries=[[2, 5, 5], [2, 4], [1, 4]],
@@ -153,7 +155,7 @@ class SegmentTree:
             print("No frames to animate. Exiting...")
             return ans
 
-        fig = plt.figure(figsize=(8, 5), frameon=False)
+        fig = plt.figure(figsize=(6, 3), frameon=False)
         fig.subplots_adjust(left=0, right=1, top=1, bottom=0, wspace=0, hspace=0)  # Remove padding
         anim = animation.ArtistAnimation(fig, [[plt.imshow(frame, aspect='auto')] for frame in self.frames],
                                          interval=1500, repeat=False)
@@ -192,10 +194,10 @@ class SegmentTree:
         pos = hierarchy_pos(self.G, root=0)  # Assuming 0 is the root node index
         node_labels = {node: f"{self.tree[node]}\n(Lazy: {self.lazy[node]})" for node in self.G.nodes()}
         node_colors = ['lightblue' if node != current_node else 'lightgreen' for node in self.G.nodes()]
-        nx.draw(self.G, pos, labels=node_labels, with_labels=True, arrows=True, node_size=1500, node_color=node_colors,
+        nx.draw(self.G, pos, labels=node_labels, with_labels=True, arrows=True, node_size=1000, node_color=node_colors,
                 font_size=8, font_color='black', ax=ax)
 
-        plt.title(operation_text, fontsize=12)
+        plt.title(operation_text, fontsize=10, fontweight='normal')
         plt.axis('off')
         plt.xticks([])
         plt.yticks([])

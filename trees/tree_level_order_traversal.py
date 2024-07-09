@@ -85,13 +85,15 @@ def visualize_level_order_traversal(graph, output_file):
         ax.axis('off')
         pos = hierarchy_pos(G, 1)
         node_colors = ['green' if node in traversal_order[:frame + 1] else 'red' for node in G.nodes()]
-        nx.draw(G, pos, with_labels=True, node_color=node_colors, ax=ax)
-        ax.set_title('Level Order Traversal')
+        nx.draw(G, pos, with_labels=True, node_color=node_colors, ax=ax, edge_color='gray', width=0.5)
+        plt.tight_layout()
 
     ani = FuncAnimation(fig, update, frames=len(traversal_order), repeat=False)
     writer = PillowWriter(fps=1)
     ani.save(output_file, writer=writer, dpi=200)  # Adjust dpi for quality
     plt.close(fig)
+    
+    return traversal_order
 
 
 def main():

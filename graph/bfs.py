@@ -1,6 +1,7 @@
 import networkx as nx
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
+import numpy as np
 
 
 def bfs(G, start, visit):
@@ -42,8 +43,16 @@ def visualize_bfs(G, output_file):
 
     start_node = 1
     traversal_order = bfs(G, start_node, traversal_callback)
+    def star_layout(G, center_node):
+        pos = {center_node: (0, 0)}  # Center node position
+        other_nodes = [node for node in G.nodes if node != center_node]
+        angle = 2 * np.pi / len(other_nodes)  # Angle between nodes
+        for i, node in enumerate(other_nodes):
+            theta = i * angle
+            pos[node] = (np.cos(theta), np.sin(theta))
+        return pos
 
-    pos = nx.shell_layout(G, nlist=[[1], list(range(2, len(G.nodes) + 1))])  # Use shell layout for star shape
+    pos = star_layout(G,1)  # Use shell layout for star shape
     fig, ax = plt.subplots()
 
     def update(frame):

@@ -29,7 +29,7 @@ const algorithms = {
     ],
     trees: [
         { name:'Level Order Traversal', value: 'Level Order Traversal' },
-        { name:'ZigZag Order Traversal', value: 'ZigZag Order Traversal' },
+        { name:'ZigZag Order Traversal', value: 'Zig Zag Order Traversal' },
         { name:'Lazy Propagation', value: 'Segment Tree'},
     ],
 };
@@ -64,7 +64,6 @@ function updatePlaceholder() {
     const algorithm = document.getElementById('algorithm').value;
 
     let placeholderText = '';
-    let isInputDisabled = false;
 
     if (algorithm === "Dijkstra's Algorithm" || algorithm === 'Kruskal MST' || algorithm === 'Prims MST') {
         placeholderText = `Write Directed or Undirected\nWrite the edges in format \nu v w\nFor edge (u->v weight w)\nSeparated by new lines\n(Don't write total nodes and total edges)`;
@@ -78,24 +77,49 @@ function updatePlaceholder() {
         placeholderText = `Write the Weights array\nWrite the Profit array\nWrite the Total Capacity\nWrite the arrays without spaces separated by commas\nExample: 1,2,3,4,5\nExample: 1,2,3,4,5\nExample: 10`;
     } else if (algorithm === 'Longest Common Subsequence' || algorithm === 'Longest Common Substring') {
         placeholderText = `Write the first string\nWrite the second string`;
-    } else if (algorithm === 'Level Order Traversal' || algorithm === 'ZigZag Order Traversal'){
+    } else if (algorithm === 'Level Order Traversal' || algorithm === 'Zig Zag Order Traversal'){
         placeholderText = `No custom input for this algorithm\nSorry!`;
-        isInputDisabled = true;
+        // isInputDisabled = true;
     } else if (algorithm === 'Segment Tree'){
         placeholderText = `Write the array separated by commas\nNo spaces\nExample: 1,2,3,4,5\nWrite the queries in format\nl,r,val (1 based indexing)\nfor updation\nl,r\nfor query\nSeparated by new lines\n(Don't write total queries and total elements)\nThe random test case will take queries as 2,5,5 for updation\n2,4 and 1,4 for query`;
     }
 
     customInput.placeholder = placeholderText;
-    customInput.disabled = isInputDisabled;
 }
 
 document.addEventListener('DOMContentLoaded', (event) => {
     const customInput = document.getElementById('custom_input');
     const algorithmSelect = document.getElementById('algorithm');
+    const runButton = document.getElementById('run-button');
+    const loadingIcon = document.getElementById('loading-icon');
 
     updatePlaceholder(); // Initial placeholder setup
 
     algorithmSelect.addEventListener('change', updatePlaceholder);
     customInput.addEventListener('focus', () => { customInput.placeholder = ''; });
     customInput.addEventListener('blur', updatePlaceholder);
+
+    // Add event listener for the "Run" button
+    const icons = ['🏃‍♀️', '🏊‍♀️', '🚴‍♀️']; // Running, swimming, and cycling woman emojis
+    let iconIndex = 0;
+    let interval;
+
+    runButton.addEventListener('click', function () {
+        // Clear any existing interval
+        if (interval) clearInterval(interval);
+
+        // Unhide the loading icon and start the cyclic rotation
+        loadingIcon.style.display = 'inline-block';
+        iconIndex = 0; // Reset to the first icon
+        loadingIcon.textContent = icons[iconIndex];
+
+        interval = setInterval(() => {
+            iconIndex = (iconIndex + 1) % icons.length;
+            loadingIcon.textContent = icons[iconIndex];
+        }, 500); // Change image every 500ms
+    });
+
+    // Initially hide the loading icon
+    loadingIcon.style.display = 'none';
 });
+

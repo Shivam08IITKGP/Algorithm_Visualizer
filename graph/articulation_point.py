@@ -60,7 +60,15 @@ def find_articulation_points(graph):
 def update(frame, ax, ax_box, frames, articulation_points):
     stack, discovery, low, parent, next_node = frame
     ax.clear()
-    pos = nx.shell_layout(G)
+    def star_layout(G, center_node):
+        pos = {center_node: (0, 0)}  # Center node position
+        other_nodes = [node for node in G.nodes if node != center_node]
+        angle = 2 * np.pi / len(other_nodes)  # Angle between nodes
+        for i, node in enumerate(other_nodes):
+            theta = i * angle
+            pos[node] = (np.cos(theta), np.sin(theta))
+        return pos
+    pos = star_layout(G,0)
 
     # Draw graph
     nx.draw(G, pos, with_labels=True, node_color='green', ax=ax)

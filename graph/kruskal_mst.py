@@ -2,6 +2,7 @@ import networkx as nx
 import json
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation, PillowWriter
+import numpy as np
 
 
 class UnionFind:
@@ -62,12 +63,20 @@ def visualize_kruskal(graph, output_file):
     frames = []
 
     fig, ax = plt.subplots()
+    def star_layout(G, center_node):
+        pos = {center_node: (0, 0)}  # Center node position
+        other_nodes = [node for node in G.nodes if node != center_node]
+        angle = 2 * np.pi / len(other_nodes)  # Angle between nodes
+        for i, node in enumerate(other_nodes):
+            theta = i * angle
+            pos[node] = (np.cos(theta), np.sin(theta))
+        return pos
 
     def draw_graph(edge):
         u, v, weight = edge
         if not mst.has_edge(u, v):
             mst.add_edge(u, v, weight=weight)
-            pos = nx.shell_layout(graph)
+            pos = star_layout(graph, 1)
             ax.clear()
             nx.draw(graph, pos, with_labels=True, ax=ax)
             edge_labels = nx.get_edge_attributes(graph, 'weight')

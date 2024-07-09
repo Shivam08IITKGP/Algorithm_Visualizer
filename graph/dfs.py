@@ -1,6 +1,7 @@
 import networkx as nx
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
+import numpy as np
 
 def dfs(G, start):
     visited = []
@@ -39,7 +40,15 @@ def custom_dfs_input(data):
 
 def visualize_dfs(G, output_file):
     traversal_order = dfs(G, 1)
-    pos = nx.shell_layout(G)
+    def star_layout(G, center_node):
+        pos = {center_node: (0, 0)}  # Center node position
+        other_nodes = [node for node in G.nodes if node != center_node]
+        angle = 2 * np.pi / len(other_nodes)  # Angle between nodes
+        for i, node in enumerate(other_nodes):
+            theta = i * angle
+            pos[node] = (np.cos(theta), np.sin(theta))
+        return pos
+    pos = star_layout(G, 1)
     fig, ax = plt.subplots(figsize=(4, 2))
     ax.set_title('DFS Traversal Order')
     frame = []

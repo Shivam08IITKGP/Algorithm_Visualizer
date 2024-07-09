@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation, PillowWriter
 import networkx as nx
 import heapq
+import numpy as np
 
 
 def fig_to_image(fig):
@@ -43,12 +44,21 @@ def visualize_prim(graph, output_file, fig_width=6, fig_height=4, dpi=100):
 
     # Adjust figure size
     fig, ax = plt.subplots(figsize=(fig_width, fig_height))
+    
+    def star_layout(G, center_node):
+        pos = {center_node: (0, 0)}  # Center node position
+        other_nodes = [node for node in G.nodes if node != center_node]
+        angle = 2 * np.pi / len(other_nodes)  # Angle between nodes
+        for i, node in enumerate(other_nodes):
+            theta = i * angle
+            pos[node] = (np.cos(theta), np.sin(theta))
+        return pos
 
     def draw_graph(edge):
         ax.clear()
         frm, to, weight = edge
         mst.add_edge(frm, to, weight=weight)
-        pos = nx.shell_layout(graph)
+        pos = star_layout(graph, 0)
 
         # Draw the graph
         nx.draw(graph, pos, with_labels=True, ax=ax)
@@ -82,7 +92,7 @@ def visualize_prim(graph, output_file, fig_width=6, fig_height=4, dpi=100):
     ani = FuncAnimation(fig, update, frames=len(frames), repeat=False)
 
     # Save the animation as a GIF
-    writer = PillowWriter(fps=1, dpi=dpi)
+    writer = PillowWriter(fps=1)
     ani.save(output_file, writer=writer)
     plt.close(fig)
 

@@ -55,7 +55,8 @@
                               onfocus="removePlaceholder()" onblur="addPlaceholder()"></textarea>
                 </div>
 
-                <button type="submit" class="btn btn-primary">Run</button>
+                <button type="submit" class="btn btn-primary" id="run-button">Run <span id="loading-icon">🏃‍♂️</span></button>
+
             </form>
 
             <div class="distances">
@@ -174,7 +175,7 @@
         {% if filename is not none %}
         <section class="right">
             <h2>{{ algorithm }}</h2>
-            <img src="{{ url_for('static', filename=filename) }}" alt="Algorithm Visualization" class="visualization">
+            <img src="{{ url_for('static', filename=filename) }}"class="gif-image" alt="Your GIF">
         </section>
         {% endif %}
     </main>

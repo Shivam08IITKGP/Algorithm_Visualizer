@@ -55,7 +55,7 @@ def visualize_knapsack_duplicate(weights, values, capacity, output_file):
         for j in range(1, n + 1):
             table_data[j][0] = f'{values[j - 1]}'
         table = ax.table(cellText=table_data, loc='center', cellLoc='center',
-                         colLabels=[f'Capacity {j}' for j in range(cols)],
+                         colLabels=[f'{j}' for j in range(cols)],
                          rowLabels=[f'Item {i}' for i in range(rows)])
 
         table.auto_set_font_size(False)
