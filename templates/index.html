@@ -134,10 +134,9 @@
                 {% endif %}
                 {% if ap %}
                 <h3>Articulation Points</h3>
+                </ul>
                 <ul>
-                    {% for point in ap %}
-                    <li>{{ point|join(', ')  }}</li>
-                    {% endfor %}
+                    <li>{{ ap|join(', ')  }}</li>
                 </ul>
                 {% endif %}
                 {% if z_array %}
@@ -175,7 +174,7 @@
         {% if filename is not none %}
         <section class="right">
             <h2>{{ algorithm }}</h2>
-            <img src="{{ url_for('static', filename=filename) }}?t={{ timestamp }}" alt="Algorithm Visualization" class="visualization">
+            <img src="{{ url_for('static', filename=filename) }}" alt="Algorithm Visualization" class="visualization">
         </section>
         {% endif %}
     </main>

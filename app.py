@@ -1,7 +1,6 @@
 from flask import Flask, render_template, request
 import os
 import subprocess
-import time
 import json
 
 app = Flask(__name__)
@@ -111,9 +110,8 @@ def run():
         algorithm = ""
         s = ""
 
-    timestamp = str(time.time())
     inf = float('inf')
-    return render_template('index.html', filename='gifs/output.gif', algorithm=algorithm, timestamp=timestamp,
+    return render_template('index.html', filename='gifs/output.gif', algorithm=algorithm, 
                            distances=distances, s=s,
                            traversal_order=traversal_order, sorted_array=sorted_array, mst=mst,
                            level_order=level_order, matches=matches,
