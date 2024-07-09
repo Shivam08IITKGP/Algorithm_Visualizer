@@ -294,5 +294,6 @@ if __name__ == '__main__':
         exit(1)
 
     result_data['algorithm'] = algorithm  # Add this line
+    print(algorithm)
     with open('result.json', 'w') as outfile:
         json.dump(result_data, outfile)

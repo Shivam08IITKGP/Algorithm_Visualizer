@@ -74,6 +74,9 @@ def run():
         suffix_array = result_data.get('suffix_array', [])
         array = result_data.get('array', [])
         
+        with open(result_file, 'w') as json_file:
+            json.dump({}, json_file)
+        
         print("Result data loaded from file")
         print("Distances:", distances)
         print("Traversal order:", traversal_order)

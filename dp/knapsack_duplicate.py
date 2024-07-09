@@ -34,7 +34,7 @@ def visualize_knapsack_duplicate(weights, values, capacity, output_file):
     # Calculate figure size based on DP table dimensions and text size
     rows = len(dp)
     cols = capacity + 1
-    fig_width = cols * 0.6  # Adjust based on capacity
+    fig_width = (cols + 5) * 0.6  # Adjust based on capacity
     fig_height = rows * 0.25 + 2.5  # Adjust based on total items and text size
 
     fig, ax = plt.subplots(figsize=(fig_width, fig_height))
@@ -60,7 +60,7 @@ def visualize_knapsack_duplicate(weights, values, capacity, output_file):
 
         table.auto_set_font_size(False)
         table.set_fontsize(6)  # Decrease font size further if needed
-        table.scale(1.5, 1.5)  # Scale down table size further if needed
+        table.scale(1.2, 1.2)  # Scale down table size further if needed
 
         # Highlight the current cell being updated
         if i > 0 and w > 0:
