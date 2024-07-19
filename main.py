@@ -6,6 +6,10 @@ from sorting.quick_sort import visualize_quick_sort
 from sorting.merge_sort import visualize_merge_sort
 from sorting.bubble_sort import visualize_bubble_sort
 from sorting.insertion_sort import visualize_insertion_sort
+from sorting.bucket_sort import visualize_bucket_sort
+from sorting.selection_sort import visualize_selection_sort
+from sorting.radix_sort import visualize_radix_sort
+from sorting.shell_sort import visualize_shell_sort
 from graph.random_graph import generate_random_connected_directed_unweighted_graph_no_self_loops, \
     generate_random_connected_directed_graph_no_self_loops
 from graph.Dijkstra import visualize_dijkstra
@@ -92,7 +96,36 @@ if __name__ == '__main__':
         else:
             array = list(map(int, custom_input.split(',')))
         array = visualize_insertion_sort(array, output_file)
-        result_data['sorted_array'] = array
+        
+    elif algorithm == "Radix Sort":
+        array = list()
+        if test_case_type == "Random":
+            array = random.sample(range(1, 100), 10)
+        else:
+            array = list(map(int, custom_input.split(',')))
+        print(array)
+        visualize_radix_sort(array, output_file)
+    
+    elif algorithm == "Shell Sort":
+        if test_case_type == "Random":
+            array = random.sample(range(1, 100), 10)
+        else:
+            array = list(map(int, custom_input.split(',')))
+        visualize_shell_sort(array, output_file)
+    
+    elif algorithm == "Bucket Sort":
+        if test_case_type == "Random":
+            array = random.sample(range(1, 100), 10)
+        else:
+            array = list(map(int, custom_input.split(',')))
+        visualize_bucket_sort(array, output_file)
+    
+    elif algorithm == "Selection Sort":
+        if test_case_type == "Random":
+            array = random.sample(range(1, 100), 10)
+        else:
+            array = list(map(int, custom_input.split(',')))
+        visualize_selection_sort(array, output_file)
 
     elif algorithm == "Kruskal MST":
         if test_case_type == "Random":

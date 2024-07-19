@@ -79,30 +79,59 @@ h2 {
 
 .container {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
   position: relative;
 }
 
 .left {
-  border-right: 0px solid #004d40;
   min-width: 300px;
-  width: 100%;
+  width: 30%; /* Adjust to ensure correct alignment */
   padding: 20px;
   box-sizing: border-box;
   background: #e0f2f1; /* Light teal background */
   color: #333;
-  margin-top: 20px;
 }
 
 .right {
-  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  width: 70%; /* Adjust to ensure correct alignment */
   padding: 20px;
   box-sizing: border-box;
-  margin-top: 20px;
+  border-radius: 8px;
+  background: #fff; /* White background */
+  animation: slideIn 1s forwards;
   overflow-x: auto;
   white-space: nowrap;
   text-align: center;
+}
+
+.divider {
+  width: 5px; /* Adjust width to be more precise */
+  background-color: #ccc;
+  cursor: col-resize;
+  position: absolute;
+  left: calc(30% - 2.5px); /* Place the divider exactly at the boundary */
+  top: 0;
+  bottom: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hidden {
+  display: none;
+}
+
+.divider::before {
+  content: "<>";
+  font-size: 12px;
+  color: #666;
 }
 
 .gif-image {
@@ -190,18 +219,26 @@ footer {
   justify-content: center;
 }
 
+.container .home-mode{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
 .home-mode .left {
-  width: 100%;
-  margin-right: 0;
+  width: 35%;
+  margin-right: 5%;
 }
 
 .run-mode .left {
-  width: 100%; /* Ensure this matches the left section width */
+  width: 30%; /* Ensure this matches the left section width */
   margin-right: 0;
 }
 
 .run-mode .right {
-  width: 100%; /* Ensure this matches the right section width */
+  width: 70%; /* Ensure this matches the right section width */
 }
 
 .run-mode .right h2 {
@@ -259,49 +296,6 @@ textarea::placeholder {
   white-space: pre-wrap; /* Allows for line breaks in placeholder text */
 }
 
-/* Media Queries for Responsive Design */
-@media (max-width: 768px) {
-  .container {
-    flex-direction: column;
-  }
-
-  .left,
-  .right {
-    width: 100%;
-    margin: 0;
-    padding: 10px;
-  }
-
-  .right {
-    order: -1; /* Move the right section above the left section */
-    margin-bottom: 20px;
-  }
-
-  .divider {
-    display: none;
-  }
-}
-
-@media (max-width: 576px) {
-  header,
-  footer {
-    padding: 10px 0;
-  }
-
-  .wrapper {
-    width: 100%;
-  }
-
-  h2 {
-    font-size: 1.5rem;
-  }
-
-  .btn {
-    font-size: 1rem;
-    padding: 8px;
-  }
-}
-
 .btn-buffering .buffering-images {
   display: inline-block;
   vertical-align: middle;
@@ -310,3 +304,4 @@ textarea::placeholder {
   margin-left: 10px;
   animation: rotateImages 1.5s linear infinite;
 }
+
