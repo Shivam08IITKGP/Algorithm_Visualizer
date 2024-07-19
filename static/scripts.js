@@ -26,6 +26,7 @@ const algorithms = {
         { name: 'Longest Common Subsequence', value: 'Longest Common Subsequence' },
         { name: 'Longest Palindromic Subsequence', value: 'Longest Palindromic Subsequence' },
         { name: 'Longest Common Substring', value: 'Longest Common Substring' },
+        { name: 'Shortest Common Supersequence', value: 'Shortest Common Supersequence' },
     ],
     trees: [
         { name:'Level Order Traversal', value: 'Level Order Traversal' },

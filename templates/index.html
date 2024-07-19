@@ -19,6 +19,12 @@
         <h2>Algorithm Visualizer</h2>
     </header>
     <main class="container {% if request.path == '/' %} home-mode{% elif request.path=='/run' %}run-mode{% endif %}">
+        {% if filename is not none %}
+        <section class="right">
+            <h2>{{ algorithm }}</h2>
+            <img src="{{ url_for('static', filename=filename) }}" class="gif-image" alt="Your GIF">
+        </section>
+        {% endif %}
         <section class="left {% if not filename %}full-width{% endif %}">
             <form action="/run" method="post">
                 <div class="form-group">
@@ -170,18 +176,49 @@
                     <li>{{ s }}</li>
                 </ul>
                 {% endif %}
+                {% if algorithm == 'Shortest Common Supersequence' %}
+                <h3>Shortest Common Supersequence</h3>
+                <ul>
+                    <li>{{ s|join('') }}</li> 
+                </ul>
+                {% endif %}
             </div>
         </section>
-        {% if filename is not none %}
-        <section class="right">
-            <h2>{{ algorithm }}</h2>
-            <img src="{{ url_for('static', filename=filename) }}"class="gif-image" alt="Your GIF">
-        </section>
-        {% endif %}
     </main>
     <footer>
         <p>&copy; 2024 Algorithm Visualizer. All rights reserved.</p>
     </footer>
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const divider = document.querySelector('.divider');
+        const left = document.querySelector('.left');
+        const right = document.querySelector('.right');
+
+        let isDragging = false;
+
+        divider.addEventListener('mousedown', function (e) {
+            isDragging = true;
+        });
+
+        document.addEventListener('mousemove', function (e) {
+            if (!isDragging) return;
+
+            let containerRect = document.querySelector('.container').getBoundingClientRect();
+            let newLeftWidth = ((e.clientX - containerRect.left) / containerRect.width) * 100;
+            let newRightWidth = 100 - newLeftWidth;
+
+            if (newLeftWidth < 20 || newRightWidth < 20) return;
+
+            left.style.width = `${newLeftWidth}%`;
+            right.style.width = `${newRightWidth}%`;
+            divider.style.left = `calc(${newLeftWidth}% - 2.5px)`; // Adjust the divider position
+        });
+
+        document.addEventListener('mouseup', function () {
+            isDragging = false;
+        });
+    });
+</script>
 </body>
 </html>

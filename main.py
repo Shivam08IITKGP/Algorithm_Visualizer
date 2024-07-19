@@ -21,6 +21,7 @@ from dp.knapsack_01 import visualize_knapsack_01
 from dp.knapsack_duplicate import visualize_knapsack_duplicate
 from dp.LCSubsequence import visualize_lcs
 from dp.LCSubstring import visualize_lcsu
+from dp.ShortestSupersequence import visualize_scs
 from trees.tree_level_order_traversal import visualize_level_order_traversal
 from trees.ZigZagOrderTraversal import visualize_zig_zag_order_traversal
 from trees.SegmentTree import SegmentTree
@@ -232,6 +233,17 @@ if __name__ == '__main__':
         string = visualize_lcs(A, B, output_file)
         result_data['string'] = string
 
+    elif algorithm == 'Shortest Common Supersequence':
+        if test_case_type == "Random":
+            A = "AGGTAB"
+            B = "GXTXAYB"
+        else:
+            arrays = custom_input.split('\n')
+            A = arrays[0].strip()
+            B = arrays[1].strip()
+        scs_str = visualize_scs(A, B, output_file)
+        result_data['string'] = scs_str
+        
     elif algorithm == 'Zig Zag Order Traversal':
         graph = {
             1: [2, 3],
